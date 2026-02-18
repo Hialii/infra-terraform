@@ -78,7 +78,7 @@ resource "aws_route_table_association" "public_2" {
 }
 
 resource "aws_eip" "nat_eip" {
-   doamin = "vpc"
+   domain = "vpc"
 }
 
 resource "aws_nat_gateway" "ngw" {
