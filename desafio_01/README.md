@@ -22,6 +22,15 @@ Roteamento:
 
 Tabelas de rotas distintas para as subnets públicas e privadas.
 
+Resolução:
+VPC => Internet gateway
+Public Route table => Internet gateway
+Private Route table => Nat Gateway
+Public route table association => Public subnet + Public Route table 
+Private route table association => Private subnet + Private Route table       
+Nat gateway => EIP + public subnet + IGW
+
+
 2. Camada de Segurança (Security Groups)
 Não use IPs fixos nas regras. Trabalhe com referências de Security Groups:
 
