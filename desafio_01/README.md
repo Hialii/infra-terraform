@@ -37,6 +37,9 @@ SG-Web: Permite entrada na porta 80 (HTTP) de qualquer lugar (0.0.0.0/0).
 
 SG-DB: Permite entrada na porta 5432 (PostgreSQL) apenas se a origem for o SG-Web.
 
+Security group WEB => security group ingress rule
+Security group DB => security group ingress rule => referece security group web
+
 3. Computação (EC2) - Para testar a rede
 Uma instância EC2 na Subnet Pública (com IP público).
 
