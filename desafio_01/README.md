@@ -30,7 +30,6 @@ Public route table association => Public subnet + Public Route table
 Private route table association => Private subnet + Private Route table       
 Nat gateway => EIP + public subnet + IGW
 
-
 2. Camada de Segurança (Security Groups)
 Não use IPs fixos nas regras. Trabalhe com referências de Security Groups:
 
