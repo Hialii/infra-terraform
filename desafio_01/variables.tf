@@ -21,3 +21,9 @@ variable "private_subnet_cidrs" {
    type = list(string)
    default = ["10.0.3.0/24", "10.0.4.0/24"]
 }
+
+variable "instance_type" {
+   description = "The type of EC2 instance to create"
+   type = string
+   default = "t2.micro"
+}
