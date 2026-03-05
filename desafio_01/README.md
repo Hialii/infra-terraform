@@ -28,7 +28,7 @@ Public Route table => Internet gateway
 Private Route table => Nat Gateway
 Public route table association => Public subnet + Public Route table 
 Private route table association => Private subnet + Private Route table       
-Nat gateway => EIP + public subnet + IGW
+Nat gateway => elastic ip + public subnet + IGW
 
 2. Camada de Segurança (Security Groups)
 Não use IPs fixos nas regras. Trabalhe com referências de Security Groups:
@@ -37,13 +37,15 @@ SG-Web: Permite entrada na porta 80 (HTTP) de qualquer lugar (0.0.0.0/0).
 
 SG-DB: Permite entrada na porta 5432 (PostgreSQL) apenas se a origem for o SG-Web.
 
-Security group WEB => security group ingress rule
-Security group DB => security group ingress rule => referece security group web
+Security group WEB => security group ingress rule => security group egress rule
+Security group DB => security group ingress rule => referece security group web => security group ingress rule
 
 3. Computação (EC2) - Para testar a rede
 Uma instância EC2 na Subnet Pública (com IP público).
 
 Uma instância EC2 na Subnet Privada (sem IP público).
+EC2 public => ami => instance
+EC2 private => ami => instance
 
 🚀 O que você deve praticar no código (O Diferencial):
 Para este desafio, tente não escrever tudo em um arquivo main.tf gigante. Use a seguinte estrutura de arquivos:
