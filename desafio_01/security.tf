@@ -22,6 +22,13 @@ resource "aws_vpc_security_group_ingress_rule" "sg_web_ingress_access" {
    ip_protocol = "tcp"
 }
 
+resource "aws_vpc_security_group_egress_rule" "sg_web_egress" {
+   security_group_id = aws_security_group.sg_web.id
+   cidr_ipv4 = "0.0.0.0/0"
+
+   ip_protocol = "-1"
+}
+
 resource "aws_security_group" "sg_bd" {
    name ="sg_bd"
    description = "Security group for main VPC"
@@ -42,4 +49,11 @@ resource "aws_vpc_security_group_ingress_rule" "sg_bd_ingress_access" {
    to_port = 22
    ip_protocol = "tcp"
    referenced_security_group_id = aws_security_group.sg_web.id 
+}
+
+resource "aws_vpc_security_group_egress_rule" "sg_db_egress" {
+   security_group_id = aws_security_group.sg_web.id
+   cidr_ipv4 = "0.0.0.0/0"
+
+   ip_protocol = "-1"
 }
