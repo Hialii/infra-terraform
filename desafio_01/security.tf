@@ -51,8 +51,8 @@ resource "aws_vpc_security_group_ingress_rule" "sg_bd_ingress_access" {
    referenced_security_group_id = aws_security_group.sg_web.id 
 }
 
-resource "aws_vpc_security_group_egress_rule" "sg_db_egress" {
-   security_group_id = aws_security_group.sg_web.id
+resource "aws_vpc_security_group_egress_rule" "sg_bd_egress" {
+   security_group_id = aws_security_group.sg_bd.id
    cidr_ipv4 = "0.0.0.0/0"
 
    ip_protocol = "-1"
