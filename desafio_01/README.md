@@ -37,6 +37,7 @@ SG-Web: Permite entrada na porta 80 (HTTP) de qualquer lugar (0.0.0.0/0).
 
 SG-DB: Permite entrada na porta 5432 (PostgreSQL) apenas se a origem for o SG-Web.
 
+Resolução
 Security group WEB => security group ingress rule => security group egress rule
 Security group DB => security group ingress rule => referece security group web => security group ingress rule
 
@@ -44,6 +45,8 @@ Security group DB => security group ingress rule => referece security group web 
 Uma instância EC2 na Subnet Pública (com IP público).
 
 Uma instância EC2 na Subnet Privada (sem IP público).
+
+Resolução
 EC2 public => ami => instance
 EC2 private => ami => instance
 
@@ -66,10 +69,55 @@ outputs.tf: Exiba o IP da instância pública e o ID da VPC ao final do terrafor
 Após o terraform apply, faça o seguinte teste:
 
 Acesse a instância Pública via SSH.
+```
+eval `ssh-agent -s` # captura as informações de configuração e incia o programa do agente 
+
+ssh-add chave.pem 
+
+ssh-add -l  #lista a as chaves-pem configuradas
+
+ssh -A ubuntu@ip.instacia.publica
+```
 
 De dentro da instância Pública, tente dar um ping ou acessar via SSH a instância Privada.
 
+```
+# acessando a instancia privada:
+
+ssh ubuntu@ip.instancia.privada
+
+# testando a instância privada
+
+ping ip.instancia.privada -c 4 # envia 4 pacotes 
+
+# --- 10.0.3.245 ping statistics ---
+# 4 packets transmitted, 0 received, 100% packet loss, time 3080ms
+# funciona porque a instância privada não deve receber acesso da internet 
+```
+
 Dentro da instância Privada, tente dar um ping google.com.
+
+```
+ping google.com -c 4 # envia 4 pacotes
+# --- google.com ping statistics ---
+# 4 packets transmitted, 4 received, 0% packet loss, time 3005ms
+# funciona, porque o nat gatway permite que a instância privada acesse a internet
+```
+
+Testando a conexão com a porta 5432
+
+```
+# na instancia publica
+
+nc -l 5432 # deixa a instancia escutando na porta
+
+# na instancia publica 
+
+nc -zv ip.instancia.publica 5432 # escaneia a porta sem enviar dados (testar serviço/porta especifica)
+# Connection to ip.instancia.privada 5432 port [tcp/postgresql] succeeded!
+
+```
+
 
 Se o ping funcionar, seu NAT Gateway e suas Route Tables estão corretos.
 
